@@ -48,9 +48,8 @@ public class WebContentProcessService {
             urlProcessInfo.setErrorMessage(errorMessage).setProcessStatus(ProcessStatus.FAILED);
             return;
         }
-        // Store the web content in the database.
         String title = webContent.title();
-        String description = title;
+        String description = title; // Default to title if no description is found.
 
         Elements descTags = webContent.select("meta[name=description]");
         if (descTags.size() > 0) {
@@ -64,8 +63,7 @@ public class WebContentProcessService {
 
     private Document scrapeWebPage(String url) throws IOException{
         Document doc = Jsoup.connect(url).get();
-        String title = doc.title();
-        System.out.println("title is: " + title);
+        System.out.println("title is: " + doc.title());
         return doc;
     }
 
