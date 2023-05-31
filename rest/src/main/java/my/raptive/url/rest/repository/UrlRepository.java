@@ -9,6 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface UrlRepository extends JpaRepository<Url, Long> {
 
-//    @Query("SELECT u FROM UrlList u WHERE u.url = ?1")
-//    Url findByUrl(String url);
+    @Query("SELECT u FROM Url u WHERE u.url = ?1")
+    Url findByUrl(String url);
 }

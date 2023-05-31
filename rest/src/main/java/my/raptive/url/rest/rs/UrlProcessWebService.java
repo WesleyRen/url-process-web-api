@@ -17,8 +17,8 @@ public class UrlProcessWebService {
 	}
 
 	@GetMapping("")
-	public List<WebContentDto> getResult(@RequestParam("processId") String processId) {
-		return urlProcessWebServiceHandler.getResult(processId);
+	public List<WebContentDto> getResult(@RequestParam("requestId") long requestId) {
+		return urlProcessWebServiceHandler.getResult(requestId);
 	}
 
 	@PostMapping(

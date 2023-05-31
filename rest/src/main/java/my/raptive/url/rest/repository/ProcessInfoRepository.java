@@ -1,7 +1,9 @@
 package my.raptive.url.rest.repository;
 
+import my.raptive.url.rest.rs.WebContentDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +13,10 @@ import java.util.List;
 @Repository
 public interface ProcessInfoRepository extends JpaRepository<ProcessInfo, Long> {
 
-//        @Query("SELECT u FROM UrlProcessInfo u WHERE u.url_list_id = ?1")
-//        List<ProcessInfo> findByProcessId(String url);
+        @Query("SELECT p FROM ProcessInfo p join Url u WHERE u.id = ?1")
+        ProcessInfo findByUrlId(long urlId);
+
+        @Query("SELECT new my.raptive.url.rest.rs.WebContentDto(u.url, p.title, p.description, p.body, p.errorMessage, u.processStatus) FROM ProcessInfo p join Url u join Request r " +
+                "WHERE r.id = :requestId")
+        List<WebContentDto> findByRequestId(@Param("requestId") Long requestId);
 }
