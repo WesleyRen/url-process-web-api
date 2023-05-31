@@ -11,9 +11,9 @@ The API is written in Java using the Spring Boot framework.
 ## System Design
 The system is designed to be scalable to handle large number of requests.
 
-**Key words: sharding, decoupling frontend and backend.**
-* REST APIs save the URLs.
-* Background process processes the URLs.
+**Key words: sharding, separate concerns.**
+* REST APIs only save the URLs,and retrieve the results.
+* Background workers processes the URLs.
 * The REST APIs and background process scales independently.
 * URLs are sharded, so that each worker only processes a subset of the URLs.
 
@@ -25,7 +25,7 @@ As a result, we can easily scale out the system by:
 
 Also, since there is most likely a finite set of URLs interest us, 
 1. we can normalize the tables, so that requestId and URL are in separate tables, and a given processed URL (with expiry setting) can serve multiple requests. 
-2. we can even learn what are the most requested URLs, if they expire and we can pre-process them. This will allow us to reduce the number of workers needed and improve response time at the same time.
+2. we can even learn what are the most requested URLs, we can pre-process them when expired. This will allow us to reduce the number of workers needed and improve response time at the same time.
 
 
 ## Installation and execution
