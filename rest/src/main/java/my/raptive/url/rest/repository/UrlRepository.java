@@ -5,13 +5,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Transactional
 @Repository
-public interface UrlProcessRepository extends JpaRepository<UrlProcessInfo, Integer> {
+public interface UrlRepository extends JpaRepository<Url, Long> {
 
-    @Query("SELECT u FROM UrlProcessInfo u WHERE u.processId = ?1")
-    List<UrlProcessInfo> findByProcessId(String processId);
-
+//    @Query("SELECT u FROM UrlList u WHERE u.url = ?1")
+//    Url findByUrl(String url);
 }

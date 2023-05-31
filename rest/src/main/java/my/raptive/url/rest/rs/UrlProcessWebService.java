@@ -25,8 +25,8 @@ public class UrlProcessWebService {
 			value = "",
 			consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
 			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public String save(@RequestBody List<String> urls) {
-		return urlProcessWebServiceHandler.save(urls);
+	public Long saveRequest(@RequestBody List<String> urls) {
+		return urlProcessWebServiceHandler.saveRequest(urls);
 	}
 
 }
