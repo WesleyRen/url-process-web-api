@@ -5,27 +5,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import my.raptive.url.processor.ProcessStatus;
 
 @Getter
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor
 @Entity
-public class UrlProcessInfo {
+public class ProcessInfo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @Column(name="url_id")
+    private long urlId;
 
-    @Column(nullable = false)
-    private String processId;
-
-    @Column(nullable = false)
-    private ProcessStatus processStatus;
-
-    @Column(nullable = false)
-    private String url;
+    @OneToOne
+    @PrimaryKeyJoinColumn(name="url_id", referencedColumnName="id")
+    private Url url;
 
     @Column
     private String title;

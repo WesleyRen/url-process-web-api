@@ -1,53 +1,50 @@
 package my.raptive.url.processor.process;
 
-import my.raptive.url.processor.ProcessStatus;
-import my.raptive.url.processor.repository.UrlProcessInfo;
-import my.raptive.url.processor.repository.UrlProcessRepository;
-
-import java.io.IOException;
-
+import my.raptive.url.processor.repository.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Component
 public class WebContentProcessService {
-    UrlProcessRepository urlProcessRepository;
 
     @Autowired
-    WebContentProcessService(UrlProcessRepository urlProcessRepository) {
-        this.urlProcessRepository = urlProcessRepository;
-    }
+    ProcessInfoRepository processInfoRepository;
+    @Autowired
+    UrlRepository urlRepository;
 
-    public void process(String processId) {
+    @Async
+    public void process(int shardId) {
         // Get the urls from the database.
-        List<UrlProcessInfo> urlProcessInfoList = urlProcessRepository.findByProcessId(processId);
+        List<Url> urlList = urlRepository.findByStatusAndShardId(shardId);
         // Process the urls.
-        for (UrlProcessInfo urlProcessInfo : urlProcessInfoList) {
+        for (Url url : urlList) {
             // Get the web content.
             Document webContent = null;
             String errorMessage = null;
+            ProcessInfo processInfo = new ProcessInfo();
             try {
-                webContent = scrapeWebPage(urlProcessInfo.getUrl());
+                webContent = scrapeWebPage(url.getUrl());
             } catch (IOException e) {
                 errorMessage = e.getMessage();
             }
             // Parse the web content.
-            updateProcessInfo(urlProcessInfo, webContent, errorMessage);
+            updateProcessInfo(url, processInfo, webContent, errorMessage);
+            urlRepository.save(url);
+            processInfoRepository.save(processInfo);
         }
-        // Store the results in the database.
-        urlProcessRepository.saveAll(urlProcessInfoList);
     }
 
-    private void updateProcessInfo(UrlProcessInfo urlProcessInfo, Document webContent, String errorMessage) {
+    private void updateProcessInfo(Url url, ProcessInfo processInfo, Document webContent, String errorMessage) {
         if (errorMessage != null) {
-            urlProcessInfo.setErrorMessage(errorMessage).setProcessStatus(ProcessStatus.FAILED);
+            processInfo.setErrorMessage(errorMessage);
+            url.setProcessStatus(ProcessStatus.FAILED);
             return;
         }
         String title = webContent.title();
@@ -60,7 +57,8 @@ public class WebContentProcessService {
         }
         String body = webContent.select("body").text();
         body = body.substring(0, Math.min(body.length(),4000));
-        urlProcessInfo.setTitle(title).setDescription(description).setBody(body).setProcessStatus(ProcessStatus.SUCCESS);
+        processInfo.setTitle(title).setDescription(description).setBody(body);
+        url.setProcessStatus(ProcessStatus.SUCCESS);
     }
 
     private Document scrapeWebPage(String url) throws IOException{

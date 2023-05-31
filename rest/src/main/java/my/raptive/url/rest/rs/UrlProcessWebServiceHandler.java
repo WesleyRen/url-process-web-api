@@ -19,7 +19,6 @@ public class UrlProcessWebServiceHandler {
 	UrlRepository urlRepository;
 
 
-
 	public List<WebContentDto> getResult(long requestId) {
 		return processInfoRepository.findByRequestId(requestId);
 	}

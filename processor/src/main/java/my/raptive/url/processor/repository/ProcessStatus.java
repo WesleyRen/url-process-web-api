@@ -1,7 +1,7 @@
-package my.raptive.url.rest.repository;
+package my.raptive.url.processor.repository;
 
 public enum ProcessStatus {
-    RECEIVED("RECEIVED"), SUCCESS("SUCCESS"), FAILED("FALLED"), IN_PROGRESS("IN_PROGRESS");
+    RECEIVED("RECEIVED"), SUCCESS("SUCCESS"), FAILED("FAILED"), IN_PROGRESS("IN_PROGRESS");
     public final String label;
 
     private ProcessStatus(String label) {

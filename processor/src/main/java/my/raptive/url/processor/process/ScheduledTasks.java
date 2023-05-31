@@ -10,6 +10,7 @@ import java.util.Date;
 @Component
 public class ScheduledTasks {
 
+
 	@Autowired
 	WebContentProcessService webContentProcessService;
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat(
@@ -25,7 +26,10 @@ public class ScheduledTasks {
 
 	@Scheduled(fixedRate = 5000)
 	public void process() {
-		webContentProcessService.process("bca27eac-979a-40d8-acff-2e6961f9dde3");
+		//TODO use shard info to determine the shards to process.
+		for (int i = 0; i < 10; i++) {
+			webContentProcessService.process(i);
+		}
 	}
 
 }

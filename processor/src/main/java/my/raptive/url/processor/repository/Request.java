@@ -1,4 +1,4 @@
-package my.raptive.url.rest.repository;
+package my.raptive.url.processor.repository;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -6,24 +6,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor
 @Entity
-public class Url {
+public class Request {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
     private long id;
 
-    @Column(nullable = false, unique = true)
-    private String url;
-
-    @Column
-    private short shardId;
-
-    @Column(nullable = false)
-    private ProcessStatus processStatus;
+    @ManyToMany(targetEntity = Url.class, cascade = CascadeType.ALL)
+    Set<Url> urls;
 }
