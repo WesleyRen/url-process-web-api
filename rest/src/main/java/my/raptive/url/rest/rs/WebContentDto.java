@@ -3,7 +3,7 @@ package my.raptive.url.rest.rs;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import my.raptive.url.rest.ProcessStatus;
+import my.raptive.url.rest.repository.ProcessStatus;
 
 @Getter
 @Setter

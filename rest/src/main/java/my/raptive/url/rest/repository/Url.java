@@ -5,9 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import my.raptive.url.rest.ProcessStatus;
-
-import java.util.Set;
 
 @Getter
 @Setter
