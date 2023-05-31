@@ -25,7 +25,7 @@ public class ScheduledTasks {
 
 	@Scheduled(fixedRate = 5000)
 	public void process() {
-		webContentProcessService.process("9048c66e-2723-466c-a752-727061616c97");
+		webContentProcessService.process("bca27eac-979a-40d8-acff-2e6961f9dde3");
 	}
 
 }
