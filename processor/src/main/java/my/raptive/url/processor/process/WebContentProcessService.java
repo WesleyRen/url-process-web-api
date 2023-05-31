@@ -23,12 +23,17 @@ public class WebContentProcessService {
     public void process(int shardId) {
         // Get the urls from the database.
         List<Url> urlList = urlRepository.findByStatusAndShardId(shardId);
+        System.out.printf("Processing %d urls %s.\n",  urlList.size(), urlList.stream().map(u -> u.getUrl()).reduce("", (a, b) -> a + ", " + b));
         // Process the urls.
         for (Url url : urlList) {
             // Get the web content.
             Document webContent = null;
             String errorMessage = null;
-            ProcessInfo processInfo = new ProcessInfo();
+            ProcessInfo processInfo = processInfoRepository.findByUrlId(url.getId());
+            if (processInfo == null) {
+                processInfo = new ProcessInfo();
+                processInfo.setUrlId(url.getId());
+            }
             try {
                 webContent = scrapeWebPage(url.getUrl());
             } catch (IOException e) {

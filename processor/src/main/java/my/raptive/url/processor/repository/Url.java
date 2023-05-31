@@ -22,7 +22,7 @@ public class Url {
     private String url;
 
     @Column
-    private short shardId;
+    private int shardId;
 
     @Column(nullable = false)
     private ProcessStatus processStatus;

@@ -22,6 +22,9 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
   @Override
   public void onApplicationEvent(final ApplicationReadyEvent event) {
 
+    // Only current setting is needed.
+    shardCountRepository.deleteAll();
+
     ShardCount shardCount = new ShardCount();
     shardCount.setShardCount(sharding.getShardCount());
     shardCountRepository.save(shardCount);

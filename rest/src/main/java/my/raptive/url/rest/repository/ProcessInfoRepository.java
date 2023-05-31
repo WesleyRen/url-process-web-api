@@ -13,10 +13,12 @@ import java.util.List;
 @Repository
 public interface ProcessInfoRepository extends JpaRepository<ProcessInfo, Long> {
 
-        @Query("SELECT p FROM ProcessInfo p join Url u WHERE u.id = ?1")
-        ProcessInfo findByUrlId(long urlId);
+        @Query("SELECT p FROM ProcessInfo p join Url u on p.urlId = u.id WHERE u.id = :urlId")
+        ProcessInfo findByUrlId(@Param("urlId") long urlId);
 
-        @Query("SELECT new my.raptive.url.rest.rs.WebContentDto(u.url, p.title, p.description, p.body, p.errorMessage, u.processStatus) FROM ProcessInfo p join Url u join Request r " +
+        @Query("SELECT new my.raptive.url.rest.rs.WebContentDto(u.url, p.title, p.description, p.body, p.errorMessage, u.processStatus) " +
+                "FROM ProcessInfo p join Url u on p.urlId = u.id " +
+                "join Request r " +
                 "WHERE r.id = :requestId")
         List<WebContentDto> findByRequestId(@Param("requestId") Long requestId);
 }

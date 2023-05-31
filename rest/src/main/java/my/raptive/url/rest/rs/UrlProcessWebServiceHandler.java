@@ -1,6 +1,7 @@
 package my.raptive.url.rest.rs;
 
 import my.raptive.url.rest.repository.*;
+import my.raptive.url.rest.shard.Sharding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,9 @@ public class UrlProcessWebServiceHandler {
 	@Autowired
 	UrlRepository urlRepository;
 
+	@Autowired
+	Sharding sharding;
+
 
 	public List<WebContentDto> getResult(long requestId) {
 		return processInfoRepository.findByRequestId(requestId);
@@ -30,9 +34,13 @@ public class UrlProcessWebServiceHandler {
 		// Store the urls in the database.
 		Set<Url> urlSet = new HashSet<>();
 		for (String url : urls) {
-			Url urlEntity = new Url();
-			urlEntity.setUrl(url);
-			urlEntity.setProcessStatus(ProcessStatus.RECEIVED);
+			Url urlEntity = urlRepository.findByUrl(url);
+			if (urlEntity == null) {
+				urlEntity = new Url();
+				urlEntity.setUrl(url);
+				urlEntity.setProcessStatus(ProcessStatus.RECEIVED);
+				urlEntity.setShardId(sharding.getShard(url));
+			}
 			urlSet.add(urlEntity);
 		}
 		request.setUrls(urlSet);

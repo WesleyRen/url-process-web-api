@@ -14,5 +14,5 @@ import lombok.experimental.Accessors;
 public class ShardCount {
 
     @Id
-    private long shardCount;
+    private int shardCount;
 }
