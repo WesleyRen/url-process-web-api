@@ -35,11 +35,11 @@ Java 17 or later.
 
 ```bash
 ./mvnw clean install
-cd rest ./mvnw spring-boot:run
+cd rest; ../mvnw spring-boot:run
 ```
 On a separate terminal:
 ```bash
-cd processor ./mvnw spring-boot:run
+cd processor; ../mvnw spring-boot:run
 ```
 
 ### Usage
@@ -54,9 +54,11 @@ echo "requestId: $ID"
 
 i=0; 
 while [ $i -lt 5 ]; do
-curl --location 'localhost:8080/url/process?requestId='$ID
-i=$((i+1)); sleep 2
+curl --location 'localhost:8080/url/process/status?requestId='$ID
+echo -n "\n"; i=$((i+1)); sleep 3
 done
+# To see the full detailed info:
+curl --location 'localhost:8080/url/process?requestId='$ID
 ```
 
 ### API Notes

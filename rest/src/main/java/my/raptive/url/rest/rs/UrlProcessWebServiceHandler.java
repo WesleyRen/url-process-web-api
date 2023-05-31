@@ -1,5 +1,6 @@
 package my.raptive.url.rest.rs;
 
+import lombok.val;
 import my.raptive.url.rest.repository.*;
 import my.raptive.url.rest.shard.Sharding;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Component
@@ -50,4 +52,8 @@ public class UrlProcessWebServiceHandler {
 		return request.getId();
 	}
 
+	public Map<String, ProcessStatus> getStatus(long requestId) {
+		return processInfoRepository.findByRequestId(requestId).stream()
+				.collect(java.util.stream.Collectors.toMap(WebContentDto::getUrl, WebContentDto::getStatus));
+	}
 }

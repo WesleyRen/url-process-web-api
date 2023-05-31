@@ -1,10 +1,12 @@
 package my.raptive.url.rest.rs;
 
+import my.raptive.url.rest.repository.ProcessStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/url/process")
@@ -19,6 +21,11 @@ public class UrlProcessWebService {
 	@GetMapping("")
 	public List<WebContentDto> getResult(@RequestParam("requestId") long requestId) {
 		return urlProcessWebServiceHandler.getResult(requestId);
+	}
+
+	@GetMapping("/status")
+	public Map<String, ProcessStatus> getStatus(@RequestParam("requestId") long requestId) {
+		return urlProcessWebServiceHandler.getStatus(requestId);
 	}
 
 	@PostMapping(
