@@ -1,7 +1,7 @@
 package my.raptive.url.processor.process;
 
-import my.raptive.url.processor.repository.ShardCount;
-import my.raptive.url.processor.repository.ShardCountRepository;
+import my.raptive.url.common.repository.ShardCount;
+import my.raptive.url.common.repository.ShardCountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

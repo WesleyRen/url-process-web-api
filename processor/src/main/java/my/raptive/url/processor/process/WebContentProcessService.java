@@ -1,6 +1,6 @@
 package my.raptive.url.processor.process;
 
-import my.raptive.url.processor.repository.*;
+import my.raptive.url.common.repository.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -23,7 +23,7 @@ public class WebContentProcessService {
     public void process(int shardId) {
         // Get the urls from the database.
         List<Url> urlList = urlRepository.findByStatusAndShardId(shardId);
-        System.out.printf("Processing %d urls %s.\n",  urlList.size(), urlList.stream().map(u -> u.getUrl()).reduce("", (a, b) -> a + ", " + b));
+        System.out.printf("Processing %d urls %s.\n",  urlList.size(), urlList.stream().map(Url::getUrl).reduce("", (a, b) -> a + ", " + b));
         // Process the urls.
         for (Url url : urlList) {
             // Get the web content.

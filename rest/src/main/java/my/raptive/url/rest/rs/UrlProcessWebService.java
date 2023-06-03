@@ -1,6 +1,7 @@
 package my.raptive.url.rest.rs;
 
-import my.raptive.url.rest.repository.ProcessStatus;
+import my.raptive.url.common.repository.ProcessStatus;
+import my.raptive.url.common.rs.WebContentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

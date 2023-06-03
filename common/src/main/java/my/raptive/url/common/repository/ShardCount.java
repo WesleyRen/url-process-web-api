@@ -1,7 +1,6 @@
-package my.raptive.url.processor.repository;
+package my.raptive.url.common.repository;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

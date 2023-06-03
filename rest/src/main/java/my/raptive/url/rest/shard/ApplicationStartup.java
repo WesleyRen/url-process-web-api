@@ -1,7 +1,7 @@
 package my.raptive.url.rest.shard;
 
-import my.raptive.url.rest.repository.ShardCount;
-import my.raptive.url.rest.repository.ShardCountRepository;
+import my.raptive.url.common.repository.ShardCount;
+import my.raptive.url.common.repository.ShardCountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
@@ -28,7 +28,5 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
     ShardCount shardCount = new ShardCount();
     shardCount.setShardCount(sharding.getShardCount());
     shardCountRepository.save(shardCount);
-
-    return;
   }
 }
