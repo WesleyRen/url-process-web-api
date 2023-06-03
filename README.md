@@ -11,7 +11,7 @@ The API is written in Java using the Spring Boot framework.
 ## System Design
 The system is designed to be scalable to handle large number of requests.
 
-**Key words: sharding, separate concerns.**
+**Keywords: sharding, separate concerns.**
 * REST APIs only save the URLs,and retrieve the results.
 * Background workers processes the URLs.
 * The REST APIs and background process scales independently.

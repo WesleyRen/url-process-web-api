@@ -1,7 +1,7 @@
 package my.raptive.url.rest.rs;
 
-import lombok.val;
-import my.raptive.url.rest.repository.*;
+import my.raptive.url.common.repository.*;
+import my.raptive.url.common.rs.WebContentDto;
 import my.raptive.url.rest.shard.Sharding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

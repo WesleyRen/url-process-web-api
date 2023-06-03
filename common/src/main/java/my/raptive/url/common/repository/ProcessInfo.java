@@ -1,4 +1,4 @@
-package my.raptive.url.rest.repository;
+package my.raptive.url.common.repository;
 
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -29,6 +29,12 @@
 			<artifactId>spring-boot-starter-web-services</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>my.raptive.url</groupId>
+			<artifactId>common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
 		<dependency>
 			<groupId>org.jsoup</groupId>

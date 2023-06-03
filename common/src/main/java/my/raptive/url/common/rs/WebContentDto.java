@@ -1,9 +1,9 @@
-package my.raptive.url.rest.rs;
+package my.raptive.url.common.rs;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import my.raptive.url.rest.repository.ProcessStatus;
+import my.raptive.url.common.repository.ProcessStatus;
 
 @Getter
 @Setter
